@@ -5,14 +5,13 @@ class ECommerceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
           children: <Widget>[
-            _buildToggleBar(),
-            Image.asset('assets/women_shop.jpg'),
+            _buildToggleBar(context),
+            Image.asset('assets/woman_shop2.jpg',fit: BoxFit.contain,),
             const DealButtons(),
             _buildProductTile(context),
           ],
@@ -24,7 +23,7 @@ class ECommerceScreen extends StatelessWidget {
   Container _buildProductTile(BuildContext context) {
     return Container(
             height: 200,
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             child: Row(
               children: <Widget>[
                 Image.asset(
@@ -39,7 +38,7 @@ class ECommerceScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'WEL COME ',
+                          'WELCOME ',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const Text(
@@ -53,56 +52,39 @@ class ECommerceScreen extends StatelessWidget {
           );
   }
 
-  Row _buildToggleBar() {
-    return const Row(
+  Row _buildToggleBar(BuildContext context) {
+    return  Row(
             children: <Widget>[
-              Padding(
-                padding:  EdgeInsets.all(8.0),
-                child: Text(
-                  'Recommended',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.all(8.0),
-                child: Text(
-                  'Formal Wear',
-                  style: TextStyle(
-                    color: Colors.white54,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding:  EdgeInsets.all(8.0),
-                child: Text(
-                  'Casual Wear',
-                  style: TextStyle(
-                    color: Colors.white54,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              _buildToggleItem(context, "Recommended", selected: true),
+              _buildToggleItem(context, "Formal Wear"),
+              _buildToggleItem(context, "Casual Wear"),
             ],
           );
   }
 
-  AppBar _buildAppBar() {
+  Padding _buildToggleItem(BuildContext context, String text, {bool selected = false}) {
+    return  Padding(
+              padding:  const EdgeInsets.all(8.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: selected ? null : Theme.of(context).textTheme.titleLarge!.color?.withOpacity(0.5),
+                  fontSize: 15,
+                  fontWeight: selected ? FontWeight.bold : null,
+                ),
+              ),
+            );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.black12,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
       leading: const Padding(
         padding:  EdgeInsets.all(20.0),
         child: Icon(Icons.home,color: Colors.white,),
       ),
-      title: const Text('Let\'s go shopping!',style: TextStyle(color: Colors.white),),
+      title: Text('Let\'s go shopping!'),
       elevation: 0,
       actions: const <Widget>[
         Padding(
@@ -134,7 +116,7 @@ class DealButtons extends StatelessWidget {
          SizedBox(height: 15),
         Row(
           children: <Widget>[
-            DealButton(text: "Must Buy in Suumer",color: Colors.lightBlue,),
+            DealButton(text: "Must Buy in Summer",color: Colors.lightBlue,),
             SizedBox(width: 10),
             DealButton(text: "Last Chance",color: Colors.redAccent,)
           ],
